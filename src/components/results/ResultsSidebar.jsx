@@ -3,7 +3,7 @@ import React from 'react';
 import { CheckCircle, AlertTriangle, RotateCw, Layers } from '../common/Icons';
 
 const ResultsSidebar = ({ container, containerDef }) => {
-    // Legacy logic: always calculate based on whatever passed (empty items if null)
+    // Calculate metrics based on the passed container, defaulting to empty if null
     const items = container ? (container.items || []) : [];
 
     const currentWeight = items.reduce((acc, i) => acc + i.weight, 0);

@@ -39,11 +39,7 @@ function App() {
     const [showInfo, setShowInfo] = useState(false);
     const [showShare, setShowShare] = useState(false);
 
-    // Editing state needs to be lifted up because ItemManager and Header (Edit Items btn) interact
-    // Actually Header only sets Step. ItemManager handles editing locally?
-    // In legacy, `editingId` and `formData` were global.
-    // In my previous step I made ItemManager handle form data locally but receive `editingId` prop.
-    // So I need `editingId` state here.
+    // State for managing item editing (lifted up to coordinate with ItemManager)
     const [editingId, setEditingId] = useState(null);
 
     // --- HANDLERS ---
@@ -104,7 +100,7 @@ function App() {
     // Derived State for Step 2
     const groupedOverflow = groupItems(overflowData);
     const currentContainer = fleet[currentContainerIdx];
-    const currentContainerDef = currentContainer ? currentContainer.containerDef : CONTAINERS[0]; // Fallback for sidebar if needed? Or just pass undefined and let sidebar handle null
+    const currentContainerDef = currentContainer ? currentContainer.containerDef : CONTAINERS[0];
 
     return (
         <div className="min-h-screen flex flex-col text-slate-700 bg-slate-50 font-sans">
