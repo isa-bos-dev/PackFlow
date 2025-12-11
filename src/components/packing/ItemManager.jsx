@@ -15,6 +15,8 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
         l: '', w: '', h: '',
         weight: '',
         qty: '',
+        gap_length: '', // New: Gap Y (Length)
+        gap_width: '',  // New: Gap X (Width)
         stackable: true,
         rotatable: true
     });
@@ -29,13 +31,15 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
                     l: item.l, w: item.w, h: item.h,
                     weight: item.weight,
                     qty: item.qty,
+                    gap_length: item.gap_length || '',
+                    gap_width: item.gap_width || '',
                     stackable: item.stackable,
                     rotatable: item.rotatable
                 });
             }
         } else {
             // Reset form when not editing
-            setFormData({ name: '', l: '', w: '', h: '', weight: '', qty: '', stackable: true, rotatable: true });
+            setFormData({ name: '', l: '', w: '', h: '', weight: '', qty: '', gap_length: '', gap_width: '', stackable: true, rotatable: true });
         }
     }, [editingId, items]);
 
@@ -46,11 +50,18 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
         const h = parseFloat(formData.h);
         const weight = parseFloat(formData.weight);
         const qty = parseInt(formData.qty);
+        const gap_length = parseFloat(formData.gap_length) || 0;
+        const gap_width = parseFloat(formData.gap_width) || 0;
         const name = formData.name || 'Box';
 
         // Validation
         if (!l || !w || !h || !qty || !weight || weight <= 0) {
             if (showToast) showToast("Please fill in all dimensions, qty and valid weight.");
+            return;
+        }
+
+        if (gap_length < 0 || gap_width < 0) {
+            if (showToast) showToast("Gaps cannot be negative.");
             return;
         }
 
@@ -60,6 +71,8 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
             l, w, h,
             weight,
             qty,
+            gap_length,
+            gap_width,
             stackable: formData.stackable,
             rotatable: formData.rotatable
         };
@@ -69,7 +82,7 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
 
         // Clear form if strictly adding (or if parent clears editingId immediately, functionality remains consistent)
         if (!editingId) {
-            setFormData({ name: '', l: '', w: '', h: '', weight: '', qty: '', stackable: true, rotatable: true });
+            setFormData({ name: '', l: '', w: '', h: '', weight: '', qty: '', gap_length: '', gap_width: '', stackable: true, rotatable: true });
         }
     };
 
@@ -89,6 +102,11 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
                                 <div className="font-bold text-sm truncate">{item.name}</div>
                                 <div className="text-xs text-slate-400 flex gap-2">
                                     <span>{item.l}x{item.w}x{item.h}m</span>
+                                    {(item.gap_length > 0 || item.gap_width > 0) &&
+                                        <span className="text-amber-600 font-bold ml-1" title={`Gap L:${item.gap_length}, W:${item.gap_width}`}>+Gap</span>
+                                    }
+                                </div>
+                                <div className="text-xs text-slate-400 flex gap-2">
                                     {item.stackable ? <span className="text-cyan-500 font-bold">Stack</span> : <span className="text-red-500 font-bold">NoStack</span>}
                                     {item.rotatable ? <span className="text-cyan-500 font-bold">Rot</span> : <span className="text-red-500 font-bold">NoRot</span>}
                                 </div>
@@ -118,6 +136,16 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
                         value={formData.w} onChange={e => setFormData({ ...formData, w: e.target.value })} />
                     <input type="number" placeholder="H (m)" className="col-span-4 md:col-span-2 p-2 bg-slate-50 rounded-lg text-sm border-none"
                         value={formData.h} onChange={e => setFormData({ ...formData, h: e.target.value })} />
+                </div>
+
+                {/* Gaps */}
+                <div className="grid grid-cols-12 gap-2 mb-2">
+                    <input type="number" placeholder="Gap L (m)" className="col-span-6 p-2 bg-amber-50 rounded-lg text-sm border border-amber-100 placeholder-amber-300 text-amber-800"
+                        title="Gap Length (Margin in X axis)"
+                        value={formData.gap_length} onChange={e => setFormData({ ...formData, gap_length: e.target.value })} />
+                    <input type="number" placeholder="Gap W (m)" className="col-span-6 p-2 bg-amber-50 rounded-lg text-sm border border-amber-100 placeholder-amber-300 text-amber-800"
+                        title="Gap Width (Margin in Z axis)"
+                        value={formData.gap_width} onChange={e => setFormData({ ...formData, gap_width: e.target.value })} />
                 </div>
 
                 {/* Weight, Qty, Flags */}

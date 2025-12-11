@@ -113,6 +113,8 @@ function App() {
                 qty: parseInt(cols[5]) || 1,
                 stackable: parseInt(cols[6]) === 1,
                 rotatable: parseInt(cols[7]) === 1,
+                gap_length: parseNum(cols[8]) || 0, // Gap Length
+                gap_width: parseNum(cols[9]) || 0,  // Gap Width
                 color: '#' + Math.floor(Math.random() * 16777215).toString(16)
             };
         }).filter(i => i !== null);

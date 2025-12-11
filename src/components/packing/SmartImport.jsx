@@ -18,7 +18,7 @@ const SmartImport = ({ onImport }) => {
             <div className="text-xs text-cyan-800 mb-3 opacity-90 bg-cyan-100 p-2 rounded-lg border border-cyan-200 leading-relaxed">
                 <p className="font-bold mb-1">Paste Excel data (No Headers):</p>
                 <code className="block bg-cyan-50 p-1 rounded border border-cyan-200 text-[10px] text-cyan-600 font-mono">
-                    Name | L(m) | W(m) | H(m) | W(kg) | Qty | Stack(0/1) | Rot(0/1)
+                    Name | L(m) | W(m) | H(m) | W(kg) | Qty | Stack(0/1) | Rot(0/1) | GapL(m) | GapW(m)
                 </code>
             </div>
             <textarea

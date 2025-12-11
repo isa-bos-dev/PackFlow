@@ -66,6 +66,8 @@ export const InfoModal = ({ onClose }) => (
                                     <th className="p-3 border-b">Qty</th>
                                     <th className="p-3 border-b">Stockable (0/1)</th>
                                     <th className="p-3 border-b">Rotatable (0/1)</th>
+                                    <th className="p-3 border-b text-amber-600">GapL (Optional)</th>
+                                    <th className="p-3 border-b text-amber-600">GapW (Optional)</th>
                                 </tr>
                             </thead>
                             <tbody className="font-mono text-slate-600">
@@ -78,6 +80,8 @@ export const InfoModal = ({ onClose }) => (
                                     <td className="p-3 border-b">2</td>
                                     <td className="p-3 border-b">0 (No)</td>
                                     <td className="p-3 border-b">1 (Yes)</td>
+                                    <td className="p-3 border-b bg-amber-50">0.1</td>
+                                    <td className="p-3 border-b bg-amber-50">0.1</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -87,7 +91,7 @@ export const InfoModal = ({ onClose }) => (
                             * Weight must be greater than 0. Stockable/Rotatable: 1 = Yes, 0 = No.
                         </div>
                         <a
-                            href="/packflow_template.xlsx"
+                            href="./packflow_template.xlsx"
                             download="PackFlow_Template.xlsx"
                             className="flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 rounded-lg font-bold text-xs transition-colors border border-emerald-200"
                         >
