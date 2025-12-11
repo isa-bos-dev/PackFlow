@@ -89,8 +89,8 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
                                 <div className="font-bold text-sm truncate">{item.name}</div>
                                 <div className="text-xs text-slate-400 flex gap-2">
                                     <span>{item.l}x{item.w}x{item.h}m</span>
-                                    {!item.stackable && <span className="text-red-400 font-bold">NoStack</span>}
-                                    {item.rotatable && <span className="text-cyan-400">Rot</span>}
+                                    {item.stackable ? <span className="text-cyan-500 font-bold">Stack</span> : <span className="text-red-500 font-bold">NoStack</span>}
+                                    {item.rotatable ? <span className="text-cyan-500 font-bold">Rot</span> : <span className="text-red-500 font-bold">NoRot</span>}
                                 </div>
                             </div>
                         </div>

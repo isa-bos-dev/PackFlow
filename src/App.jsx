@@ -88,12 +88,35 @@ function App() {
     const handleSmartImport = (text) => {
         const rows = text.trim().split('\n');
         const newItems = rows.map((row, index) => {
-            const cols = row.split(/[\t,]/);
+            // Determine separator: prefer tab (Excel) over comma
+            const separator = row.includes('\t') ? '\t' : ',';
+            const cols = row.split(separator);
+
             if (cols.length < 3) return null;
-            const w = parseFloat(cols[4]);
+
+            // Helper to parse numbers with comma support (e.g. "0,8" -> 0.8)
+            const parseNum = (val) => {
+                if (!val) return 0;
+                return parseFloat(val.toString().replace(',', '.'));
+            };
+
+            const w = parseNum(cols[4]);
             if (!w || w <= 0) return null;
-            return { id: Date.now() + index, name: cols[0] || `Item ${index}`, l: parseFloat(cols[1]) || 0.5, w: parseFloat(cols[2]) || 0.5, h: parseFloat(cols[3]) || 0.5, weight: w, qty: parseInt(cols[5]) || 1, stackable: parseInt(cols[6]) === 1, rotatable: parseInt(cols[7]) === 1, color: '#' + Math.floor(Math.random() * 16777215).toString(16) };
+
+            return {
+                id: Date.now() + index,
+                name: cols[0] || `Item ${index}`,
+                l: parseNum(cols[1]) || 0.5,
+                w: parseNum(cols[2]) || 0.5,
+                h: parseNum(cols[3]) || 0.5,
+                weight: w,
+                qty: parseInt(cols[5]) || 1,
+                stackable: parseInt(cols[6]) === 1,
+                rotatable: parseInt(cols[7]) === 1,
+                color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+            };
         }).filter(i => i !== null);
+
         if (newItems.length > 0) { setItems([...items, ...newItems]); showToast("Imported successfully!"); } else { showToast("Invalid data format."); }
     };
 
