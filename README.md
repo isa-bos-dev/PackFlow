@@ -1,6 +1,6 @@
 # 📦 PackFlow - Smart Load Calculator
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Click_Here-2dd4bf?style=for-the-badge&logo=rocket&logoColor=white)](https://isabosdev.com/PackFlow/)
+[![Go to App](https://img.shields.io/badge/🚀_Go_to_App-Click_Here-2dd4bf?style=for-the-badge&logo=rocket&logoColor=white)](https://isabosdev.com/PackFlow/)
 
 [![English](https://img.shields.io/badge/English-blue?style=flat-square)](README.md) [![Spanish](https://img.shields.io/badge/Español-red?style=flat-square)](README_ES.md)
 

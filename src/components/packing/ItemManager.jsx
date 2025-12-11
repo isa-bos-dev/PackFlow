@@ -80,7 +80,7 @@ const ItemManager = ({ items, onAdd, onDelete, onEdit, editingId, showToast }) =
             </h2>
 
             {/* Item List Area */}
-            <div className="space-y-3 max-h-60 overflow-y-auto pr-2 mb-4 flex-grow custom-scrollbar">
+            <div className="space-y-3 overflow-y-auto pr-2 mb-4 flex-grow custom-scrollbar">
                 {items.map((item) => (
                     <div key={item.id} className={`flex items-center justify-between p-3 rounded-xl border ${editingId === item.id ? 'bg-cyan-50 border-cyan-200' : 'bg-slate-50 border-transparent'}`}>
                         <div className="flex items-center gap-3 overflow-hidden">

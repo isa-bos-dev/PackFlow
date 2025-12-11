@@ -89,7 +89,7 @@ const Visualizer3D = ({ container, items, autoRotate }) => {
 
     // Container style matched exactly from legacy: 
     // className="w-full h-96 md:h-[500px] rounded-2xl bg-white shadow-inner border border-slate-200"
-    return <div ref={mountRef} className="w-full h-96 md:h-[500px] rounded-2xl bg-white shadow-inner border border-slate-200" />;
+    return <div ref={mountRef} className="w-full h-full min-h-[300px] rounded-2xl bg-white shadow-inner border border-slate-200" />;
 };
 
 export default Visualizer3D;

@@ -13,6 +13,6 @@ export const CONTAINERS = [
     { id: "20_ot_iso", name: "20' Open Top", inner_dims: { l: 5.89, w: 2.34, h: 2.34 }, max_weight: 28200, color: "#e9d5ff", type: "OT", open_top: true },
     { id: "40_ot_iso", name: "40' Open Top", inner_dims: { l: 12.03, w: 2.34, h: 2.34 }, max_weight: 26600, color: "#d8b4fe", type: "OT", open_top: true },
     // Flat Racks: LENGTH is strict for base
-    { id: "20_fr_iso", name: "20' Flat Rack", inner_dims: { l: 6.00, w: 2.40, h: 2.20 }, max_weight: 30000, color: "#cbd5e1", type: "FR", open_top: true, open_side: true },
-    { id: "40_fr_iso", name: "40' Flat Rack", inner_dims: { l: 12.00, w: 2.40, h: 2.00 }, max_weight: 40000, color: "#94a3b8", type: "FR", open_top: true, open_side: true }
+    { id: "20_fr_iso", name: "20' Flat Rack", inner_dims: { l: 6.00, w: 2.40, h: 2.20 }, max_weight: 30000, color: "#fda4af", type: "FR", open_top: true, open_side: true },
+    { id: "40_fr_iso", name: "40' Flat Rack", inner_dims: { l: 12.00, w: 2.40, h: 2.00 }, max_weight: 40000, color: "#fb7185", type: "FR", open_top: true, open_side: true }
 ];

@@ -126,36 +126,58 @@ function App() {
     const currentContainerDef = currentContainer ? currentContainer.containerDef : CONTAINERS[0];
 
     return (
-        <div className="min-h-screen flex flex-col text-slate-700 bg-slate-50 font-sans">
-            {/* Header matches legacy structurally but as a component */}
-            <Header step={step} onBack={() => setStep(1)} onOpenInfo={() => setShowInfo(true)} />
+        <div className="h-screen flex flex-col text-slate-700 bg-slate-50 font-sans overflow-hidden">
+            {/* Header with Desktop Optimize Button */}
+            <Header
+                step={step}
+                onBack={() => setStep(1)}
+                onOpenInfo={() => setShowInfo(true)}
+                onOptimize={handleCalculate}
+                isOptimizeDisabled={items.length === 0}
+            />
 
-            <main className="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full">
+            <main className="flex-grow p-4 md:p-6 max-w-7xl mx-auto w-full overflow-hidden flex flex-col">
                 {step === 1 && (
-                    <div className="animate-fade-in space-y-8">
-                        <ContainerSelector
-                            containers={CONTAINERS}
-                            selectedIds={selectedContainerIds}
-                            onToggle={toggleContainerSelect}
-                        />
-
-                        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <ItemManager
-                                items={items}
-                                onAdd={handleAddItem}
-                                onDelete={handleDeleteClick}
-                                onEdit={(item) => setEditingId(item.id)}
-                                editingId={editingId}
-                                showToast={showToast}
+                    <div className="animate-fade-in flex flex-col h-full gap-4">
+                        {/* Section 1: Top - Container Selector (Fixed height/Auto) */}
+                        <div className="shrink-0">
+                            <ContainerSelector
+                                containers={CONTAINERS}
+                                selectedIds={selectedContainerIds}
+                                onToggle={toggleContainerSelect}
                             />
-                            <SmartImport onImport={handleSmartImport} />
+                        </div>
+
+                        {/* Section 2: Middle - Item Manager & Import (Fill remaining space) */}
+                        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-grow min-h-0">
+                            <div className="h-full min-h-0">
+                                <ItemManager
+                                    items={items}
+                                    onAdd={handleAddItem}
+                                    onDelete={handleDeleteClick}
+                                    onEdit={(item) => setEditingId(item.id)}
+                                    editingId={editingId}
+                                    showToast={showToast}
+                                />
+                            </div>
+                            <div className="h-full min-h-0 hidden md:block">
+                                <SmartImport onImport={handleSmartImport} />
+                            </div>
+                            {/* Mobile: SmartImport might be pushed down or hidden if not prioritizing. 
+                                For now, I'll keep it simple or maybe scroll on mobile? 
+                                User asked for "Desktop... no scroll". Mobile can scroll.
+                            */}
+                            <div className="md:hidden">
+                                <SmartImport onImport={handleSmartImport} />
+                            </div>
                         </section>
 
-                        <div className="flex justify-center pt-4 pb-12">
+                        {/* Section 3: Bottom - Mobile Optimize Button */}
+                        <div className="flex justify-center pt-2 md:hidden shrink-0 pb-safe">
                             <button
                                 onClick={handleCalculate}
                                 disabled={items.length === 0}
-                                className="flex items-center gap-3 bg-gradient-to-r from-cyan-600 to-teal-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:scale-105 transition-transform shadow-xl shadow-cyan-200 disabled:opacity-50 disabled:hover:scale-100"
+                                className="flex items-center gap-3 bg-gradient-to-r from-cyan-600 to-teal-600 text-white px-10 py-5 rounded-full text-xl font-bold shadow-xl shadow-cyan-200 disabled:opacity-50"
                             >
                                 <Play fill="white" /> Optimize Load
                             </button>
@@ -164,8 +186,8 @@ function App() {
                 )}
 
                 {step === 2 && (
-                    <div className="animate-fade-in grid grid-cols-1 lg:grid-cols-3 gap-6 h-full pb-10">
-                        <div className="lg:col-span-2 flex flex-col gap-4">
+                    <div className="animate-fade-in grid grid-cols-1 lg:grid-cols-3 gap-6 h-full pb-4 min-h-0">
+                        <div className="lg:col-span-2 flex flex-col gap-4 h-full min-h-0">
                             <ResultsMainPanel
                                 fleet={fleet}
                                 currentContainerIdx={currentContainerIdx}
@@ -176,7 +198,7 @@ function App() {
                                 onOpenShare={() => setShowShare(true)}
                             />
                         </div>
-                        <div className="flex flex-col gap-4"> {/* Original layout just had this wrapper */}
+                        <div className="flex flex-col gap-4 h-full min-h-0 overflow-y-auto">
                             <ResultsSidebar
                                 container={currentContainer}
                                 containerDef={currentContainerDef}

@@ -85,7 +85,26 @@ const ResultsSidebar = ({ container, containerDef }) => {
                                 <span className="block font-medium">{item.name}</span>
                                 <span className="text-xs text-slate-400">{item.rotated ? `Rotated (${item.w.toFixed(2)}x${item.l.toFixed(2)})` : `${item.l.toFixed(2)}x${item.w.toFixed(2)}`} • {item.y > 0 ? `On Stack (Y=${item.y.toFixed(2)})` : 'Floor'}</span>
                             </div>
-                            <div className="text-slate-500 font-mono text-xs text-right">{item.rotated && <RotateCw size={12} className="inline mr-1" />}{item.stackable === false && <Layers size={12} className="inline text-red-400" />}</div>
+                            <div className="text-slate-500 font-mono text-xs text-right flex items-center justify-end gap-2">
+                                {item.rotated && (
+                                    <div className="group relative flex items-center">
+                                        <RotateCw size={14} className="text-cyan-600 cursor-help" />
+                                        <div className="absolute bottom-full mb-2 right-[-10px] px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-lg">
+                                            Rotated
+                                            <div className="absolute top-full right-3 border-4 border-transparent border-t-slate-800"></div>
+                                        </div>
+                                    </div>
+                                )}
+                                {item.stackable === false && (
+                                    <div className="group relative flex items-center">
+                                        <Layers size={14} className="text-rose-400 cursor-help" />
+                                        <div className="absolute bottom-full mb-2 right-[-10px] px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-lg">
+                                            Not Stackable
+                                            <div className="absolute top-full right-3 border-4 border-transparent border-t-slate-800"></div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     ))}
                     {items.length === 0 && <p className="text-center text-slate-400 italic py-4">No items packed.</p>}

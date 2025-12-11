@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Archive } from '../common/Icons';
+import { Archive, ArrowLeft } from '../common/Icons';
 
 const SmartImport = ({ onImport }) => {
     const [smartPasteText, setSmartPasteText] = useState("");
@@ -30,9 +30,9 @@ const SmartImport = ({ onImport }) => {
             <button
                 onClick={handleSmartPaste}
                 disabled={!smartPasteText}
-                className="mt-3 w-full py-3 bg-cyan-600 text-white rounded-xl font-bold hover:bg-cyan-700 disabled:opacity-50 transition-colors shadow-lg shadow-cyan-200"
+                className="mt-3 mb-1 w-full py-2 text-sm bg-cyan-600 text-white rounded-lg font-bold hover:bg-cyan-700 disabled:opacity-50 transition-colors shadow-lg shadow-cyan-200 flex items-center justify-center gap-2"
             >
-                Import Data
+                <ArrowLeft size={16} /> Import Data
             </button>
         </div>
     );

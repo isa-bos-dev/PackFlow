@@ -1,5 +1,5 @@
 import React from 'react';
-import { HelpCircle, X, Move, RefreshCw, Archive, Sun, AlertTriangle, CheckCircle, Download, Share2 } from './Icons';
+import { HelpCircle, X, Move, RefreshCw, Archive, Sun, AlertTriangle, CheckCircle, Download, Share2, Layers } from './Icons';
 
 export const InfoModal = ({ onClose }) => (
     <div className="fixed inset-0 modal-overlay flex items-center justify-center z-[100] p-4 animate-fade-in">
@@ -7,7 +7,7 @@ export const InfoModal = ({ onClose }) => (
             <div className="bg-slate-900 p-6 text-white flex justify-between items-center border-b border-slate-700">
                 <div>
                     <h2 className="text-xl font-bold flex items-center gap-3"><HelpCircle size={24} className="text-cyan-400" /> Documentation</h2>
-                    <p className="text-slate-400 text-xs mt-1 font-mono uppercase tracking-wider">User Manual v1.0.0</p>
+                    <p className="text-slate-400 text-xs mt-1 font-mono uppercase tracking-wider">User Manual</p>
                 </div>
                 <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors"><X size={24} /></button>
             </div>
@@ -22,9 +22,9 @@ export const InfoModal = ({ onClose }) => (
                         </h3>
                         <p className="mb-3 text-slate-600">The Position (POS) column indicates the exact placement of each item in <strong>Meters</strong> (X, Y, Z).</p>
                         <div className="grid grid-cols-3 gap-2 font-mono text-xs">
-                            <div className="bg-red-50 p-2 rounded border border-red-100 text-center"><span className="text-red-600 font-bold block text-lg">X</span> Length (Largo)</div>
-                            <div className="bg-green-50 p-2 rounded border border-green-100 text-center"><span className="text-green-600 font-bold block text-lg">Y</span> Height (Alto)</div>
-                            <div className="bg-blue-50 p-2 rounded border border-blue-100 text-center"><span className="text-blue-600 font-bold block text-lg">Z</span> Width (Ancho)</div>
+                            <div className="bg-red-50 p-2 rounded border border-red-100 text-center"><span className="text-red-600 font-bold block text-lg">X</span> Length</div>
+                            <div className="bg-green-50 p-2 rounded border border-green-100 text-center"><span className="text-green-600 font-bold block text-lg">Y</span> Height</div>
+                            <div className="bg-blue-50 p-2 rounded border border-blue-100 text-center"><span className="text-blue-600 font-bold block text-lg">Z</span> Width</div>
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@ export const InfoModal = ({ onClose }) => (
                 </div>
 
                 {/* 3. Data Protocols */}
-                <div className="p-6 bg-slate-50">
+                <div className="p-6 border-b border-slate-200 bg-white">
                     <h3 className="font-bold text-cyan-900 uppercase tracking-wide mb-4 flex items-center gap-2">
                         <Archive size={18} /> 3. Excel Import Format
                     </h3>
@@ -82,8 +82,40 @@ export const InfoModal = ({ onClose }) => (
                             </tbody>
                         </table>
                     </div>
-                    <div className="mt-2 text-xs text-slate-500 italic">
-                        * Weight must be greater than 0. Stockable/Rotatable: 1 = Yes, 0 = No.
+                    <div className="mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div className="text-xs text-slate-500 italic">
+                            * Weight must be greater than 0. Stockable/Rotatable: 1 = Yes, 0 = No.
+                        </div>
+                        <a
+                            href="/packflow_template.xlsx"
+                            download="PackFlow_Template.xlsx"
+                            className="flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 rounded-lg font-bold text-xs transition-colors border border-emerald-200"
+                        >
+                            <Download size={16} /> Excel Template
+                        </a>
+                    </div>
+                </div>
+
+                {/* 4. Packing List Icons Guide (Moved Here) */}
+                <div className="p-6 border-b border-slate-200 bg-slate-50">
+                    <h3 className="font-bold text-cyan-900 uppercase tracking-wide mb-3 flex items-center gap-2">
+                        <Archive size={18} /> 4. Packing List Indicators
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <div className="flex items-center gap-3 bg-white p-3 rounded border border-slate-200">
+                            <div className="p-2 bg-slate-100 rounded-full"><RefreshCw size={16} className="text-cyan-600" /></div>
+                            <div>
+                                <strong className="block text-slate-800">Rotated</strong>
+                                <span className="text-slate-500">Item was rotated 90° to fit better.</span>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-3 bg-white p-3 rounded border border-slate-200">
+                            <div className="p-2 bg-slate-100 rounded-full"><div className="text-rose-400 font-bold"><Layers size={16} /></div></div>
+                            <div>
+                                <strong className="block text-slate-800">Not Stackable</strong>
+                                <span className="text-slate-500">Nothing can be placed on top of this (Y axis).</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -91,7 +123,7 @@ export const InfoModal = ({ onClose }) => (
                 <div className="p-6 bg-white border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                         <h3 className="font-bold text-cyan-900 uppercase tracking-wide mb-4 flex items-center gap-2">
-                            <Sun size={18} /> 4. Special Equipment
+                            <Sun size={18} /> 5. Special Equipment
                         </h3>
                         <div className="space-y-3 text-sm text-slate-600">
                             <div className="p-3 bg-purple-50 rounded-lg border border-purple-100">
@@ -107,7 +139,7 @@ export const InfoModal = ({ onClose }) => (
 
                     <div>
                         <h3 className="font-bold text-cyan-900 uppercase tracking-wide mb-4 flex items-center gap-2">
-                            <AlertTriangle size={18} /> 5. Center of Gravity
+                            <AlertTriangle size={18} /> 6. Center of Gravity
                         </h3>
                         <div className="space-y-2 text-sm">
                             <div className="flex items-center gap-3 p-2 bg-emerald-50 border border-emerald-100 rounded-lg">
